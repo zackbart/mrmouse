@@ -6,10 +6,14 @@ struct MrMouseApp: App {
     @StateObject private var appState = AppState()
     @Environment(\.openWindow) private var openWindow
 
-    static let logPath = "/Users/zackbart/Dev/projects/mrmouse/mrmouse.log"
+    static var logPath: String {
+        let logsDir = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first!
+            .appendingPathComponent("Logs/MrMouse", isDirectory: true)
+        try? FileManager.default.createDirectory(at: logsDir, withIntermediateDirectories: true)
+        return logsDir.appendingPathComponent("mrmouse.log").path
+    }
 
     init() {
-        // Redirect stderr (NSLog output) to a log file for easy debugging.
         Self.setupFileLogging()
     }
 
@@ -17,22 +21,15 @@ struct MrMouseApp: App {
         let fileManager = FileManager.default
         let path = logPath
 
-        // Add a separator if the file already has content
-        if fileManager.fileExists(atPath: path),
-           let existing = fileManager.contents(atPath: path),
-           !existing.isEmpty {
-            if let handle = FileHandle(forWritingAtPath: path) {
-                handle.seekToEndOfFile()
-                let separator = "\n=== RUN \(Date()) ===\n"
-                handle.write(separator.data(using: .utf8)!)
-            }
+        if !fileManager.fileExists(atPath: path) {
+            fileManager.createFile(atPath: path, contents: nil)
         }
 
-        // Open for writing (append) and redirect stderr
-        if let fileHandle = FileHandle(forWritingAtPath: path) {
-            fileHandle.seekToEndOfFile()
-            let fd = fileHandle.fileDescriptor
-            dup2(fd, STDERR_FILENO)
+        if let handle = FileHandle(forWritingAtPath: path) {
+            handle.seekToEndOfFile()
+            let separator = "\n=== RUN \(Date()) ===\n"
+            handle.write(separator.data(using: .utf8)!)
+            dup2(handle.fileDescriptor, STDERR_FILENO)
         }
         NSLog("[MrMouse] Logging to %@", path)
     }
