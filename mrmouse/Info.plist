@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSInputMonitoringUsageDescription</key>
+	<string>MrMouse needs Input Monitoring access to communicate with your Logitech mouse via HID++.</string>
+	<key>NSAccessibilityUsageDescription</key>
+	<string>MrMouse needs Accessibility access to remap mouse buttons and perform gesture actions.</string>
+	<key>NSBluetoothUsageDescription</key>
+	<string>MrMouse uses Bluetooth to communicate with your Logitech mouse for gesture support.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>MrMouse uses Bluetooth to communicate with your Logitech mouse for gesture support.</string>
+</dict>
+</plist>
