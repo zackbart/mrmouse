@@ -6,13 +6,23 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D8E3125C2F75EC5B0006ADEE /* ISS.c in Sources */ = {isa = PBXBuildFile; fileRef = D8E3125B2F75EC5B0006ADEE /* ISS.c */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D8E3124C2F75EC5A0006ADEE /* mrmouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mrmouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8E3125A2F75EC5B0006ADEE /* ISS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISS.h; sourceTree = "<group>"; };
+		D8E3125B2F75EC5B0006ADEE /* ISS.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ISS.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D8E3124E2F75EC5A0006ADEE /* mrmouse */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			children = (
+				D8E3125A2F75EC5B0006ADEE /* ISS.h */,
+				D8E3125B2F75EC5B0006ADEE /* ISS.c */,
+			);
 			path = mrmouse;
 			sourceTree = "<group>";
 		};
@@ -119,6 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E3125C2F75EC5B0006ADEE /* ISS.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +287,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				SWIFT_OBJC_BRIDGING_HEADER = mrmouse/EventEngine/ISS.h;
 			};
 			name = Debug;
 		};
@@ -310,6 +322,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
+				SWIFT_OBJC_BRIDGING_HEADER = mrmouse/EventEngine/ISS.h;
 			};
 			name = Release;
 		};

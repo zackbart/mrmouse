@@ -36,11 +36,11 @@ Lightweight macOS driver for Logitech MX Master 3S, replacing Logi Options+.
 ### Not Working
 
 **Desktop switching (Ctrl+Left/Right arrows):**
-- CGEvent modifier flags (`.maskControl`, `.maskCommand`) are **not recognized by the system** on macOS 26 Tahoe
-- Separate Ctrl key press/release via CGEvent also does not work
-- `SLSShowSpaces` and `CGSShowSpaces` in SkyLight framework return errors
-- `CGSManagedDisplaySetCurrentSpace` crashes
-- **This is a known macOS 26 system-level bug** — even [yabai](https://github.com/koekeishiya/yabai/issues/2699) and [Logi Options+](https://www.reddit.com/r/logitech/comments/1q4fisd/) are broken for desktop switching on Tahoe
+- **FIXED** — Implemented using synthetic trackpad gesture technique from [InstantSpaceSwitcher](https://github.com/jurplel/InstantSpaceSwitcher) (MIT license)
+- On macOS 26 Tahoe, CGEvent modifier flags are stripped by the WindowServer, and CGS APIs are broken
+- The workaround synthesizes a trackpad swipe gesture with artificially high velocity (400.0), which causes macOS to perform an instant space switch while bypassing the broken APIs
+- Requires no SIP disable, no private entitlements
+- Direction is controlled by the sign of `swipeVelocity` (+400.0 for right, -400.0 for left)
 
 **What doesn't work (attempted and rejected):**
 - `CoreDockSendNotification` — `Dock.framework` does not exist on macOS 26 (moved to `WindowManager.framework`, no public API)
@@ -105,7 +105,7 @@ System UI functions that bypass the CGEvent modifier flag limitation:
 | Emoji Picker | 179 | CGEvent keyboardEvent |
 | App Exposé | N/A | AXShowExpose on Dock AXDockItem |
 | Volume/Media | N/A | NSSystemDefined NSEvent |
-| Desktop Switch | — | **Broken on Tahoe** |
+| Desktop Switch | N/A | Synthetic trackpad gesture (ISS.c) |
 
 ### Why HID++ notifications don't work
 - macOS kernel HID driver blocks unsolicited vendor-defined HID++ notifications from USB receivers
